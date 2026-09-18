@@ -44,12 +44,12 @@ export const ContentProvider = ({ children }) => {
           ...prev,
           [section]: res.data || data,
         }));
-        showToast(`✅ ${section.toUpperCase()} updated successfully!`, "success");
+        showToast("Changes saved successfully!", "success");
         return res;
       }
     } catch (err) {
       console.error(`Failed to update ${section}:`, err);
-      showToast(`❌ Failed to update ${section}: ${err.message}`, "error");
+      showToast(`Failed to save: ${err.message}`, "error");
       throw err;
     } finally {
       setSaving(false);

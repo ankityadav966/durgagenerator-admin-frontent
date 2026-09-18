@@ -1,193 +1,223 @@
 import { Link } from "react-router-dom";
 import { useContent } from "../context/ContentContext";
 import {
-  Sparkles,
+  Image,
   Zap,
-  Star,
-  Quote,
-  Building2,
+  CheckCircle,
+  MessageSquare,
+  Info,
   ListOrdered,
   HelpCircle,
-  PhoneCall,
+  Phone,
+  Settings,
   ArrowRight,
-  CheckCircle2,
-  Layers,
-  Flame,
-  Image as ImageIcon
+  ExternalLink
 } from "lucide-react";
 
 export const Dashboard = () => {
   const { content } = useContent();
 
+  const generators = content?.generators || [];
+  const heroSlides = content?.hero?.slides || [];
+  const testimonials = content?.testimonials || [];
+  const faqs = content?.faqs || [];
+
   const sections = [
     {
-      title: "Hero Banner & Carousel",
+      title: "Hero Banner",
       path: "/hero",
-      icon: Sparkles,
-      count: `${content?.hero?.slides?.length || 3} Slides`,
-      desc: "Manage homepage main slides, slogans, background titles, badges, and generator images.",
-      badge: "Homepage Top",
-      color: "from-amber-500/20 to-yellow-600/10",
-      accent: "text-amber-400"
+      icon: Image,
+      count: `${heroSlides.length} Slides`,
+      desc: "Homepage top slider images, headings, and call-to-action buttons."
     },
     {
-      title: "Generator Catalog & Pricing",
+      title: "Generators & Pricing",
       path: "/generators",
       icon: Zap,
-      count: `${content?.generators?.length || 8} Equipment Cards`,
-      desc: "Update generator capacities (5kVA - 500kVA), rental prices per day/month, images, and fuel specs.",
-      badge: "Core Products",
-      color: "from-yellow-500/20 to-orange-600/10",
-      accent: "text-yellow-400",
-      highlight: true
+      count: `${generators.length} Generators`,
+      desc: "Generator models (5kVA to 500kVA), rental prices, photos, and specs."
     },
     {
-      title: "Why Choose Us (Features)",
+      title: "Why Choose Us",
       path: "/features",
-      icon: Star,
-      count: `${content?.features?.length || 4} Feature Cards`,
-      desc: "Highlight company strengths like 24/7 Support, Well Maintained generators, and Affordable Prices.",
-      badge: "Trust Factors",
-      color: "from-blue-500/20 to-indigo-600/10",
-      accent: "text-blue-400"
+      icon: CheckCircle,
+      count: `${content?.features?.length || 4} Features`,
+      desc: "Service highlights, advantages, and trust points."
     },
     {
       title: "Customer Reviews",
       path: "/testimonials",
-      icon: Quote,
-      count: `${content?.testimonials?.length || 3} Testimonials`,
-      desc: "Manage client feedback, customer names, event/business designations, star ratings, and avatars.",
-      badge: "Social Proof",
-      color: "from-emerald-500/20 to-teal-600/10",
-      accent: "text-emerald-400"
+      icon: MessageSquare,
+      count: `${testimonials.length} Reviews`,
+      desc: "Client testimonials, names, ratings, and customer photos."
     },
     {
-      title: "About Page & Live Stats",
+      title: "About Us",
       path: "/about",
-      icon: Building2,
-      count: `${content?.about?.stats?.length || 4} Stat Counters`,
-      desc: "Company story, Mission, Vision, and numeric counters (500+ Generators, 1200+ Projects, 98% Satisfaction).",
-      badge: "About Us",
-      color: "from-purple-500/20 to-pink-600/10",
-      accent: "text-purple-400"
+      icon: Info,
+      count: `${content?.about?.stats?.length || 4} Stats`,
+      desc: "Company story, mission, vision, and experience stats."
     },
     {
-      title: "How It Works & Rental Plans",
+      title: "How It Works",
       path: "/how-it-works",
       icon: ListOrdered,
-      count: `${content?.howItWorks?.steps?.length || 5} Process Steps`,
-      desc: "5 easy rental steps (Choose -> Quote -> Delivery -> Install -> Support) and Daily/Weekly/Monthly plans.",
-      badge: "Process",
-      color: "from-cyan-500/20 to-sky-600/10",
-      accent: "text-cyan-400"
+      count: `${content?.howItWorks?.steps?.length || 5} Steps`,
+      desc: "Rental process steps and daily/weekly rental plans."
     },
     {
-      title: "FAQ Center",
+      title: "FAQ",
       path: "/faq",
       icon: HelpCircle,
-      count: `${content?.faqs?.length || 8} Q&A Items`,
-      desc: "Frequently Asked Questions regarding generator delivery, fuel policies, emergency backup, and operator support.",
-      badge: "Help & Support",
-      color: "from-rose-500/20 to-red-600/10",
-      accent: "text-rose-400"
+      count: `${faqs.length} Questions`,
+      desc: "Frequently asked questions and answers."
     },
     {
-      title: "Contact Info & Location",
+      title: "Contact Info",
       path: "/contact",
-      icon: PhoneCall,
-      count: "Phone, WhatsApp, Maps",
-      desc: "Phone (+91 8854954525), WhatsApp quick chat, office address in Jaipur, Google Maps embed, social links.",
-      badge: "Communication",
-      color: "from-amber-600/20 to-yellow-700/10",
-      accent: "text-yellow-500"
+      icon: Phone,
+      count: "Contact Details",
+      desc: "Phone numbers, WhatsApp, Jaipur address, and social links."
+    },
+    {
+      title: "Settings",
+      path: "/settings",
+      icon: Settings,
+      count: "Security",
+      desc: "Change admin login username and password."
     }
   ];
 
   return (
-    <div className="space-y-10">
-      {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-[#0f2440] via-[#132c4f] to-[#0a182b] border border-yellow-600/30 rounded-3xl p-8 lg:p-10 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
-            <Flame size={14} className="text-yellow-400" />
-            <span>Master Content Management System</span>
-          </div>
-
-          <h1 className="text-3xl lg:text-5xl font-bold font-serif text-white tracking-tight">
-            Durga Generator Rent <span className="text-yellow-400">Dashboard</span>
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+            Dashboard
           </h1>
-
-          <p className="text-gray-300 text-sm lg:text-base mt-3 max-w-3xl leading-relaxed italic">
-            Select any section below to update live text content, generator rental prices, card specifications, and upload images. All changes immediately sync with the live website.
+          <p className="text-gray-500 text-sm mt-1">
+            Welcome to Durga Generator Admin Panel. Manage your website content and generator catalog.
           </p>
+        </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs">
-            <div className="flex items-center gap-2 bg-[#07162b]/80 border border-yellow-700/30 px-4 py-2 rounded-xl text-gray-300">
-              <CheckCircle2 size={16} className="text-green-400" />
-              <span>Full Dynamic Control Active</span>
-            </div>
-            <div className="flex items-center gap-2 bg-[#07162b]/80 border border-yellow-700/30 px-4 py-2 rounded-xl text-gray-300">
-              <ImageIcon size={16} className="text-yellow-400" />
-              <span>Direct Image File Upload Supported</span>
-            </div>
-          </div>
+        <a
+          href="http://localhost:5173"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-medium transition-colors shadow-sm w-fit"
+        >
+          <span>Open Website</span>
+          <ExternalLink size={13} />
+        </a>
+      </div>
+
+      {/* Summary Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+          <span className="text-xs font-medium text-gray-500">Generators in Catalog</span>
+          <p className="text-2xl font-bold text-gray-900 mt-1">{generators.length}</p>
+        </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+          <span className="text-xs font-medium text-gray-500">Hero Slides</span>
+          <p className="text-2xl font-bold text-gray-900 mt-1">{heroSlides.length}</p>
+        </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+          <span className="text-xs font-medium text-gray-500">Customer Reviews</span>
+          <p className="text-2xl font-bold text-gray-900 mt-1">{testimonials.length}</p>
+        </div>
+        <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+          <span className="text-xs font-medium text-gray-500">FAQ Questions</span>
+          <p className="text-2xl font-bold text-gray-900 mt-1">{faqs.length}</p>
         </div>
       </div>
 
-      {/* Sections Grid */}
-      <div>
-        <div className="flex items-center justify-between mb-6">
+      {/* Live Generators Preview Section with Real Images */}
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-2xl font-bold font-serif text-white flex items-center gap-2">
-              <Layers className="text-yellow-500" size={24} />
-              <span>Website Sections to Edit</span>
+            <h2 className="text-base font-bold text-gray-900">
+              Generators Catalog Preview
             </h2>
-            <p className="text-gray-400 text-xs mt-1">
-              Click on any card to open its dedicated section editor.
+            <p className="text-xs text-gray-500">
+              Live products showing on the website
             </p>
           </div>
+          <Link
+            to="/generators"
+            className="text-xs font-medium text-amber-700 hover:text-amber-800 hover:underline inline-flex items-center gap-1"
+          >
+            <span>Manage All Generators</span>
+            <ArrowRight size={13} />
+          </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-3">
+          {generators.slice(0, 8).map((gen, idx) => (
+            <div
+              key={gen.id || idx}
+              className="border border-gray-200 rounded-lg p-3 bg-gray-50 hover:bg-white hover:border-amber-400 transition-colors flex flex-col items-center text-center"
+            >
+              <div className="w-20 h-20 bg-white rounded-md border border-gray-200 p-1 flex items-center justify-center mb-2 overflow-hidden">
+                <img
+                  src={gen.image || "/assets/gen_5kva.png"}
+                  alt={gen.name}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src = "/assets/gen_5kva.png";
+                  }}
+                />
+              </div>
+              <p className="text-xs font-semibold text-gray-900 truncate w-full">
+                {gen.name || gen.title}
+              </p>
+              <span className="text-[11px] text-amber-700 font-medium">
+                {gen.price}
+              </span>
+              <span className="text-[10px] text-gray-500">
+                {gen.capacity} • {gen.fuel || "Diesel"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Website Sections Grid */}
+      <div>
+        <h2 className="text-base font-bold text-gray-900 mb-3">
+          Edit Website Sections
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {sections.map((sec, idx) => {
             const Icon = sec.icon;
             return (
               <Link
                 key={idx}
                 to={sec.path}
-                className={`bg-[#0d1d33] border rounded-3xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group relative overflow-hidden ${
-                  sec.highlight
-                    ? "border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.15)] bg-gradient-to-b from-[#132845] to-[#0d1d33]"
-                    : "border-yellow-900/20 hover:border-yellow-600/40"
-                }`}
+                className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:border-amber-500 hover:shadow-md transition-all flex flex-col justify-between group"
               >
-                {/* Background Glow */}
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${sec.color} rounded-full blur-2xl group-hover:scale-150 transition-transform`}></div>
-
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`p-3 rounded-2xl bg-[#07162b] border border-yellow-700/20 ${sec.accent}`}>
-                      <Icon size={22} />
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-200">
+                      <Icon size={18} />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-[#07162b] px-3 py-1 rounded-full text-yellow-400 border border-yellow-700/30">
+                    <span className="text-[11px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
                       {sec.count}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold font-serif text-white group-hover:text-yellow-400 transition-colors">
+                  <h3 className="text-sm font-bold text-gray-900 group-hover:text-amber-700 transition-colors">
                     {sec.title}
                   </h3>
 
-                  <p className="text-gray-400 text-xs mt-2.5 line-clamp-3 leading-relaxed italic">
+                  <p className="text-xs text-gray-500 mt-1 leading-relaxed line-clamp-2">
                     {sec.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-yellow-900/30 flex items-center justify-between text-xs font-semibold text-yellow-500 group-hover:text-yellow-300">
+                <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-medium text-amber-700">
                   <span>Edit Section</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </Link>
             );

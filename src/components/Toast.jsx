@@ -1,5 +1,5 @@
 import { useContent } from "../context/ContentContext";
-import { CheckCircle2, AlertCircle, X } from "lucide-react";
+import { CheckCircle2, AlertCircle } from "lucide-react";
 
 export const Toast = () => {
   const { toast } = useContent();
@@ -9,15 +9,19 @@ export const Toast = () => {
   const isSuccess = toast.type === "success";
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 animate-bounce">
+    <div className="fixed bottom-6 right-6 z-50">
       <div
-        className={`flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl border text-sm font-medium ${
+        className={`flex items-center gap-2.5 px-4 py-3 rounded-lg shadow-lg border text-xs font-medium ${
           isSuccess
-            ? "bg-[#132d20] text-green-300 border-green-500/40 shadow-green-950/50"
-            : "bg-[#331313] text-red-300 border-red-500/40 shadow-red-950/50"
+            ? "bg-white text-emerald-800 border-emerald-300 shadow-emerald-900/10"
+            : "bg-white text-red-800 border-red-300 shadow-red-900/10"
         }`}
       >
-        {isSuccess ? <CheckCircle2 className="text-green-400 shrink-0" size={20} /> : <AlertCircle className="text-red-400 shrink-0" size={20} />}
+        {isSuccess ? (
+          <CheckCircle2 className="text-emerald-600 shrink-0" size={16} />
+        ) : (
+          <AlertCircle className="text-red-600 shrink-0" size={16} />
+        )}
         <span>{toast.message}</span>
       </div>
     </div>

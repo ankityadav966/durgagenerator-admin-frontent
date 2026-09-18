@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useContent } from "../context/ContentContext";
 import { SectionHeader } from "../components/SectionHeader";
-import { Phone, Mail, MapPin, MessageSquare, Globe, Clock, Share2 } from "lucide-react";
+import { Phone, MapPin, Share2 } from "lucide-react";
 
 export const ContactManager = () => {
   const { content, updateSection } = useContent();
@@ -47,171 +47,164 @@ export const ContactManager = () => {
   };
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-12">
       <SectionHeader
-        badge="CONTACT & COMPANY PROFILE"
-        title="Contact Info, Location & Social Links"
-        description="Update official contact phone numbers, WhatsApp click-to-chat, support email, physical office address in Jaipur, Google Maps embed link, and social profiles. These sync across the Header, Footer, and Contact Page."
+        title="Contact Info & Company Details"
+        description="Phone numbers, WhatsApp, email, Jaipur office address, and social links."
         websiteRoute="/contact"
         onSave={handleSave}
       />
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Contact Numbers & Channels */}
-        <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-5">
-          <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30 flex items-center gap-2">
-            <Phone className="text-yellow-500" size={18} />
-            <span>Direct Communication Channels</span>
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Contact Numbers */}
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+          <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+            Direct Contact Information
           </h3>
 
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-              Primary Calling Phone Number
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Calling Phone Number
             </label>
             <input
               type="text"
               value={settings.primaryPhone || ""}
               onChange={(e) => handleChange("primaryPhone", e.target.value)}
               placeholder="+91 8854954525"
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-4 py-2.5 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-              WhatsApp Number (with country code, no + or spaces)
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              WhatsApp Number (e.g. 918854954525)
             </label>
             <input
               type="text"
               value={settings.whatsappNumber || ""}
               onChange={(e) => handleChange("whatsappNumber", e.target.value)}
               placeholder="918854954525"
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-4 py-2.5 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-              Support Email Address
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Support Email
             </label>
             <input
               type="email"
               value={settings.primaryEmail || ""}
               onChange={(e) => handleChange("primaryEmail", e.target.value)}
               placeholder="vinayvssaini45254525@gmail.com"
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-4 py-2.5 text-xs text-white focus:border-yellow-500 outline-none"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-              Working / Operating Hours
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Operating Hours
             </label>
             <input
               type="text"
               value={settings.workingHours || ""}
               onChange={(e) => handleChange("workingHours", e.target.value)}
               placeholder="24/7 Available (Monday - Sunday)"
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-4 py-2.5 text-xs text-white focus:border-yellow-500 outline-none"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none"
             />
           </div>
         </div>
 
         {/* Location & Map */}
-        <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-5">
-          <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30 flex items-center gap-2">
-            <MapPin className="text-yellow-500" size={18} />
-            <span>Office Location & Google Map</span>
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+          <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+            Office Location & Map
           </h3>
 
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-              Physical Office Address
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Office Address
             </label>
             <textarea
               rows="3"
               value={settings.address || ""}
               onChange={(e) => handleChange("address", e.target.value)}
               placeholder="Govind Nagar, Plot No. 64, Harmada, Jaipur..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl p-3 text-xs text-white focus:border-yellow-500 outline-none resize-none"
+              className="w-full bg-white border border-gray-300 rounded-lg p-2.5 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
               Google Maps Embed URL
             </label>
             <input
               type="text"
               value={settings.mapEmbedUrl || ""}
               onChange={(e) => handleChange("mapEmbedUrl", e.target.value)}
-              placeholder="https://maps.google.com/maps?q=Harmada%20Jaipur..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-4 py-2.5 text-xs text-white focus:border-yellow-500 outline-none font-mono text-[11px]"
+              placeholder="https://maps.google.com/maps?..."
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono text-[11px]"
             />
-            <p className="text-[11px] text-gray-500 mt-1 italic">
-              Paste the 'src' link from Google Maps embed code.
-            </p>
           </div>
         </div>
       </div>
 
       {/* Social Media Links */}
-      <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-5">
-        <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30 flex items-center gap-2">
-          <Share2 className="text-yellow-500" size={18} />
-          <span>Social Media Profiles</span>
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+        <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+          Social Media Links
         </h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-              Facebook URL
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Facebook
             </label>
             <input
               type="text"
               value={settings.socialLinks?.facebook || ""}
               onChange={(e) => handleSocialChange("facebook", e.target.value)}
               placeholder="https://facebook.com/..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3 py-2 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-              Instagram URL
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Instagram
             </label>
             <input
               type="text"
               value={settings.socialLinks?.instagram || ""}
               onChange={(e) => handleSocialChange("instagram", e.target.value)}
               placeholder="https://instagram.com/..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3 py-2 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-              YouTube Channel
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              YouTube
             </label>
             <input
               type="text"
               value={settings.socialLinks?.youtube || ""}
               onChange={(e) => handleSocialChange("youtube", e.target.value)}
               placeholder="https://youtube.com/..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3 py-2 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-              Twitter / X URL
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Twitter / X
             </label>
             <input
               type="text"
               value={settings.socialLinks?.twitter || ""}
               onChange={(e) => handleSocialChange("twitter", e.target.value)}
               placeholder="https://x.com/..."
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3 py-2 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none font-mono"
             />
           </div>
         </div>

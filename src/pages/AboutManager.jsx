@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useContent } from "../context/ContentContext";
 import { SectionHeader } from "../components/SectionHeader";
 import { ImageUploadField } from "../components/ImageUploadField";
-import { Plus, Trash2, Hash } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 
 export const AboutManager = () => {
   const { content, updateSection } = useContent();
@@ -58,121 +58,120 @@ export const AboutManager = () => {
   };
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-12">
       <SectionHeader
-        badge="ABOUT US PAGE & STATISTICS"
-        title="About Story, Mission & Counter Stats"
-        description="Update the company background, mission and vision statements, story cover image, and live achievement numbers (500+ Generators, 1200+ Projects completed, etc.)."
+        title="About Us Page & Statistics"
+        description="Company story, mission, vision, and experience stats."
         websiteRoute="/about"
         onSave={handleSave}
       />
 
       {/* Hero Header Area */}
-      <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-4">
-        <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30">
-          1. About Page Top Header
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+        <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+          About Page Header
         </h3>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
               Subtitle Pill Text
             </label>
             <input
               type="text"
               value={aboutData.heroSubtitle || ""}
               onChange={(e) => handleFieldChange("heroSubtitle", e.target.value)}
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-yellow-500 outline-none"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-              Main Header Title
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+              Header Title
             </label>
             <input
               type="text"
               value={aboutData.heroTitle || ""}
               onChange={(e) => handleFieldChange("heroTitle", e.target.value)}
-              className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-yellow-500 outline-none font-serif font-bold"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 font-semibold focus:border-amber-600 outline-none"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
             Introductory Summary
           </label>
           <textarea
             rows="2"
             value={aboutData.heroDescription || ""}
             onChange={(e) => handleFieldChange("heroDescription", e.target.value)}
-            className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2 text-xs text-white focus:border-yellow-500 outline-none resize-none italic"
+            className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
           />
         </div>
       </div>
 
       {/* Story & Cover Image */}
-      <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-6">
-        <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30">
-          2. Company Story & Cover Photo
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+        <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+          Company Story & Photo
         </h3>
 
-        <div className="grid lg:grid-cols-12 gap-8">
+        <div className="grid lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
                   Story Badge
                 </label>
                 <input
                   type="text"
                   value={aboutData.storyBadge || ""}
                   onChange={(e) => handleFieldChange("storyBadge", e.target.value)}
-                  className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-yellow-500 outline-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1.5">
-                  Story Headline
+                <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                  Story Title
                 </label>
                 <input
                   type="text"
                   value={aboutData.storyTitle || ""}
                   onChange={(e) => handleFieldChange("storyTitle", e.target.value)}
-                  className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-yellow-500 outline-none font-bold"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 font-semibold focus:border-amber-600 outline-none"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                <label className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
                   Story Paragraphs
                 </label>
                 <button
                   type="button"
                   onClick={handleAddParagraph}
-                  className="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1 font-semibold"
+                  className="text-xs text-amber-700 hover:text-amber-800 font-medium flex items-center gap-1 cursor-pointer"
                 >
-                  <Plus size={14} /> Add Paragraph
+                  <Plus size={13} /> Add Paragraph
                 </button>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {(aboutData.storyParagraphs || []).map((para, pIdx) => (
                   <div key={pIdx} className="flex items-start gap-2">
                     <textarea
-                      rows="3"
+                      rows="2"
                       value={para}
                       onChange={(e) => handleParagraphChange(pIdx, e.target.value)}
-                      className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl p-3 text-xs text-white focus:border-yellow-500 outline-none resize-none italic"
+                      className="w-full bg-white border border-gray-300 rounded-lg p-2.5 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
                     />
                     <button
                       type="button"
                       onClick={() => handleDeleteParagraph(pIdx)}
-                      className="p-2 rounded-lg bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800/40 mt-1"
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 mt-0.5"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -184,10 +183,10 @@ export const AboutManager = () => {
 
           <div className="lg:col-span-5">
             <ImageUploadField
-              label="About Story Cover Image"
+              label="Story Cover Photo"
               value={aboutData.storyImage || ""}
               onChange={(newUrl) => handleFieldChange("storyImage", newUrl)}
-              helperText="Upload an industrial generator site photo or event setup image."
+              helperText="Upload or choose photo for About page."
               aspect="cover"
             />
           </div>
@@ -196,60 +195,59 @@ export const AboutManager = () => {
 
       {/* Mission & Vision */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 shadow-xl space-y-3">
-          <h3 className="font-serif font-bold text-lg text-white">Our Mission</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-2">
+          <h3 className="font-bold text-sm text-gray-900">Our Mission</h3>
           <textarea
-            rows="4"
+            rows="3"
             value={aboutData.mission || ""}
             onChange={(e) => handleFieldChange("mission", e.target.value)}
-            className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl p-3.5 text-xs text-white focus:border-yellow-500 outline-none resize-none italic"
+            className="w-full bg-white border border-gray-300 rounded-lg p-3 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
           />
         </div>
 
-        <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 shadow-xl space-y-3">
-          <h3 className="font-serif font-bold text-lg text-white">Our Vision</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-2">
+          <h3 className="font-bold text-sm text-gray-900">Our Vision</h3>
           <textarea
-            rows="4"
+            rows="3"
             value={aboutData.vision || ""}
             onChange={(e) => handleFieldChange("vision", e.target.value)}
-            className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl p-3.5 text-xs text-white focus:border-yellow-500 outline-none resize-none italic"
+            className="w-full bg-white border border-gray-300 rounded-lg p-3 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
           />
         </div>
       </div>
 
       {/* Stats Counters */}
-      <div className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 lg:p-8 shadow-xl space-y-4">
-        <h3 className="font-serif font-bold text-lg text-white pb-3 border-b border-yellow-900/30 flex items-center gap-2">
-          <Hash className="text-yellow-500" size={20} />
-          <span>3. Live Stats Counters</span>
+      <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm space-y-4">
+        <h3 className="font-bold text-sm text-gray-900 pb-2 border-b border-gray-200">
+          Achievement Counters
         </h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {(aboutData.stats || []).map((stat, sIdx) => (
-            <div key={sIdx} className="bg-[#07162b] p-4 rounded-2xl border border-yellow-900/40 space-y-2">
+            <div key={sIdx} className="bg-gray-50 p-3.5 rounded-lg border border-gray-200 space-y-2">
               <div>
-                <label className="block text-[10px] font-semibold text-yellow-500 uppercase tracking-wider mb-1">
-                  Counter Value
+                <label className="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1">
+                  Number / Counter
                 </label>
                 <input
                   type="text"
                   value={stat.number || ""}
                   onChange={(e) => handleStatChange(sIdx, "number", e.target.value)}
                   placeholder="500+"
-                  className="w-full bg-[#0c1a2d] border border-yellow-700/30 rounded-lg px-3 py-2 text-sm text-yellow-300 font-bold focus:border-yellow-400 outline-none font-mono"
+                  className="w-full bg-white border border-gray-300 rounded-md px-2.5 py-1.5 text-xs text-amber-800 font-bold focus:border-amber-600 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">
-                  Label / Description
+                <label className="block text-[10px] font-semibold text-gray-600 uppercase tracking-wider mb-1">
+                  Label
                 </label>
                 <input
                   type="text"
                   value={stat.label || ""}
                   onChange={(e) => handleStatChange(sIdx, "label", e.target.value)}
                   placeholder="Generators Available"
-                  className="w-full bg-[#0c1a2d] border border-yellow-700/30 rounded-lg px-3 py-2 text-xs text-white focus:border-yellow-400 outline-none"
+                  className="w-full bg-white border border-gray-300 rounded-md px-2.5 py-1.5 text-xs text-gray-900 focus:border-amber-600 outline-none"
                 />
               </div>
             </div>

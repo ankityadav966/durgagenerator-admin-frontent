@@ -44,11 +44,10 @@ export const TestimonialsManager = () => {
   };
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-12">
       <SectionHeader
-        badge="CUSTOMER REVIEWS & SOCIAL PROOF"
-        title="Client Testimonials & Ratings"
-        description="Manage the client feedback carousel on the homepage. Update reviewer names, roles, 5-star ratings, testimonial quotes, and customer avatar photos."
+        title="Customer Reviews & Testimonials"
+        description="Client testimonials displayed on the homepage."
         websiteRoute="/"
         onSave={handleSave}
       />
@@ -57,34 +56,34 @@ export const TestimonialsManager = () => {
         {testimonials.map((test, idx) => (
           <div
             key={test.id || idx}
-            className="bg-[#0c1a2d] border border-yellow-700/30 rounded-3xl p-6 shadow-xl relative flex flex-col justify-between"
+            className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between pb-3 border-b border-yellow-900/30 mb-4">
-                <span className="text-xs font-bold text-yellow-400 font-mono">
+              <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-4">
+                <span className="text-xs font-semibold text-gray-500">
                   Review #{idx + 1}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleDeleteTestimonial(idx)}
-                  className="p-1.5 rounded-lg bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800/40"
+                  className="p-1 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  title="Delete review"
                 >
                   <Trash2 size={14} />
                 </button>
               </div>
 
-              <div className="space-y-4">
-                {/* Image Upload for Client */}
+              <div className="space-y-3.5">
                 <ImageUploadField
-                  label="Client Photo / Avatar"
+                  label="Avatar / Photo"
                   value={test.image || ""}
                   onChange={(newUrl) => handleTestimonialChange(idx, "image", newUrl)}
-                  helperText="Recommended: Square avatar photo."
+                  helperText="Select review avatar."
                   aspect="cover"
                 />
 
                 <div>
-                  <label className="block text-xs font-semibold text-yellow-500 uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
                     Client Name
                   </label>
                   <input
@@ -92,55 +91,55 @@ export const TestimonialsManager = () => {
                     value={test.name || ""}
                     onChange={(e) => handleTestimonialChange(idx, "name", e.target.value)}
                     placeholder="Rajesh Sharma"
-                    className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2 text-xs text-white focus:border-yellow-500 outline-none font-bold"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 font-medium focus:border-amber-600 outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">
-                    Role / Company / Designation
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    Role / Business
                   </label>
                   <input
                     type="text"
                     value={test.role || ""}
                     onChange={(e) => handleTestimonialChange(idx, "role", e.target.value)}
-                    placeholder="Event Manager"
-                    className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2 text-xs text-white focus:border-yellow-500 outline-none font-mono"
+                    placeholder="Event Organizer"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">
-                    Star Rating (1 - 5)
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    Rating (Stars)
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         type="button"
                         key={star}
                         onClick={() => handleTestimonialChange(idx, "rating", star)}
-                        className={`p-1.5 rounded-lg border transition-all ${
+                        className={`p-1 rounded border transition-colors cursor-pointer ${
                           (test.rating || 5) >= star
-                            ? "bg-yellow-500/20 border-yellow-500 text-yellow-400"
-                            : "bg-[#07162b] border-yellow-900/30 text-gray-600"
+                            ? "bg-amber-50 border-amber-300 text-amber-500"
+                            : "bg-gray-50 border-gray-200 text-gray-300"
                         }`}
                       >
-                        <Star size={16} fill="currentColor" />
+                        <Star size={15} fill="currentColor" />
                       </button>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">
-                    Review Text / Quote
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                    Review Text
                   </label>
                   <textarea
                     rows="3"
                     value={test.review || ""}
                     onChange={(e) => handleTestimonialChange(idx, "review", e.target.value)}
-                    placeholder="Excellent service! Generator was delivered on time..."
-                    className="w-full bg-[#07162b] border border-yellow-900/40 rounded-xl px-3.5 py-2 text-xs text-white focus:border-yellow-500 outline-none resize-none italic"
+                    placeholder="Generator service was very prompt and reliable..."
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-amber-600 outline-none resize-none"
                   />
                 </div>
               </div>
@@ -153,10 +152,10 @@ export const TestimonialsManager = () => {
         <button
           type="button"
           onClick={handleAddTestimonial}
-          className="px-5 py-3 rounded-xl bg-[#0f2440] hover:bg-[#15345c] text-yellow-400 border border-dashed border-yellow-600/40 font-bold text-xs flex items-center gap-2 cursor-pointer shadow"
+          className="px-4 py-2 rounded-lg bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-medium text-xs flex items-center gap-1.5 cursor-pointer shadow-sm"
         >
-          <Plus size={16} />
-          <span>Add Another Customer Testimonial</span>
+          <Plus size={14} />
+          <span>Add Testimonial</span>
         </button>
       </div>
     </div>
