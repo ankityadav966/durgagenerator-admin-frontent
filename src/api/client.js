@@ -94,12 +94,21 @@ export const uploadApi = {
 
   getGallery: () => apiRequest("/api/upload/gallery"),
 
-  deleteImage: (publicId) => {
+  deleteImage: async (publicId) => {
+    console.log("uploadApi: deleteImage triggered for:", publicId);
     const encoded = encodeURIComponent(publicId);
-    return apiRequest(`/api/upload/${encoded}?publicId=${encoded}`, {
-      method: "DELETE",
-      body: JSON.stringify({ publicId }),
-    });
+    try {
+      return await apiRequest(`/api/upload/${encoded}?publicId=${encoded}`, {
+        method: "DELETE",
+        body: JSON.stringify({ publicId }),
+      });
+    } catch (err) {
+      console.warn("deleteImage primary method failed, trying query fallback:", err.message);
+      return await apiRequest(`/api/upload?publicId=${encoded}`, {
+        method: "DELETE",
+        body: JSON.stringify({ publicId }),
+      });
+    }
   },
 
   getStatus: () => apiRequest("/api/upload/status"),

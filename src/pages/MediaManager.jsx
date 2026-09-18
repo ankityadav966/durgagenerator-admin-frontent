@@ -9,7 +9,8 @@ import {
   Image as ImageIcon,
   ExternalLink,
   Loader2,
-  AlertCircle
+  AlertTriangle,
+  X
 } from "lucide-react";
 import { uploadApi } from "../api/client";
 
@@ -18,6 +19,7 @@ export const MediaManager = () => {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [status, setStatus] = useState(null);
   const [copiedUrl, setCopiedUrl] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
@@ -38,7 +40,7 @@ export const MediaManager = () => {
     try {
       setLoading(true);
       const res = await uploadApi.getGallery();
-      if (res.success && res.images) {
+      if (res.success && Array.isArray(res.images)) {
         setImages(res.images);
       }
     } catch (err) {
@@ -77,18 +79,22 @@ export const MediaManager = () => {
     }
   };
 
-  const handleDelete = async (publicId) => {
-    const confirmed = window.confirm("Are you sure you want to permanently delete this image from Cloudinary?");
-    if (!confirmed) return;
-
+  // Direct delete execution without native browser window.confirm (avoids browser prompt suppression)
+  const executeDelete = async (publicId) => {
+    console.log("executeDelete called for:", publicId);
     try {
       setDeletingId(publicId);
       setMessage({ text: "", type: "" });
-      await uploadApi.deleteImage(publicId);
+      
+      const res = await uploadApi.deleteImage(publicId);
+      console.log("Delete API response:", res);
+
+      // Instantly remove card from gallery UI
       setImages((prev) => prev.filter((img) => img.publicId !== publicId));
-      setMessage({ text: "Image deleted from Cloudinary successfully!", type: "success" });
+      setConfirmDeleteId(null);
+      setMessage({ text: "Image permanently deleted from Cloudinary!", type: "success" });
     } catch (err) {
-      console.error("Delete error:", err);
+      console.error("Delete error in component:", err);
       setMessage({ text: err.message || "Failed to delete image from Cloudinary", type: "error" });
     } finally {
       setDeletingId(null);
@@ -168,7 +174,7 @@ export const MediaManager = () => {
           </div>
           <div>
             <span className="text-gray-400 block text-[10px] uppercase font-bold">Cloud Name</span>
-            <span className="font-mono text-gray-900">{status?.cloudName || "dswm5fwef"}</span>
+            <span className="font-mono text-gray-900">{status?.cloudName || status?.cloud_name || "dswm5fwef"}</span>
           </div>
           <div>
             <span className="text-gray-400 block text-[10px] uppercase font-bold">Folder</span>
@@ -218,11 +224,12 @@ export const MediaManager = () => {
           {images.map((img) => {
             const fileName = img.publicId.split("/").pop();
             const isDeleting = deletingId === img.publicId;
+            const isConfirming = confirmDeleteId === img.publicId;
 
             return (
               <div
                 key={img.publicId}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col group"
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col group relative"
               >
                 {/* Image Container */}
                 <div className="relative aspect-square bg-gray-50 flex items-center justify-center p-2 border-b border-gray-100 overflow-hidden">
@@ -259,7 +266,7 @@ export const MediaManager = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleDelete(img.publicId)}
+                      onClick={() => setConfirmDeleteId(img.publicId)}
                       disabled={isDeleting}
                       className="p-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors cursor-pointer"
                       title="Delete from Cloudinary"
@@ -269,7 +276,7 @@ export const MediaManager = () => {
                   </div>
                 </div>
 
-                {/* Info Bar */}
+                {/* Info & Actions */}
                 <div className="p-2.5 flex-1 flex flex-col justify-between text-left">
                   <div>
                     <p className="text-xs font-semibold text-gray-800 truncate" title={fileName}>
@@ -280,39 +287,72 @@ export const MediaManager = () => {
                     </p>
                   </div>
 
-                  <div className="mt-2 flex items-center gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(img.url)}
-                      className="flex-1 py-1.5 px-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
-                    >
-                      {copiedUrl === img.url ? (
-                        <>
-                          <Check size={11} className="text-emerald-600" />
-                          <span className="text-emerald-700 font-semibold">Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy size={11} />
-                          <span>Copy URL</span>
-                        </>
-                      )}
-                    </button>
+                  {/* Inline Confirmation Box (No blocking browser popup) */}
+                  {isConfirming ? (
+                    <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded-lg space-y-1.5 animate-in fade-in duration-150">
+                      <div className="flex items-center gap-1 text-[11px] font-semibold text-red-700">
+                        <AlertTriangle size={12} className="shrink-0" />
+                        <span>Delete image?</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => executeDelete(img.publicId)}
+                          disabled={isDeleting}
+                          className="flex-1 py-1 px-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-[10px] font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-xs"
+                        >
+                          {isDeleting ? (
+                            <Loader2 size={11} className="animate-spin" />
+                          ) : (
+                            <Trash2 size={11} />
+                          )}
+                          <span>Yes, Delete</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmDeleteId(null)}
+                          disabled={isDeleting}
+                          className="py-1 px-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded text-[10px] font-medium transition-colors cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-2 flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(img.url)}
+                        className="flex-1 py-1.5 px-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                      >
+                        {copiedUrl === img.url ? (
+                          <>
+                            <Check size={11} className="text-emerald-600" />
+                            <span className="text-emerald-700 font-semibold">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={11} />
+                            <span>Copy URL</span>
+                          </>
+                        )}
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(img.publicId)}
-                      disabled={isDeleting}
-                      className="p-1.5 rounded bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[10px] font-medium flex items-center justify-center transition-colors cursor-pointer shrink-0"
-                      title="Delete image from Cloudinary"
-                    >
-                      {isDeleting ? (
-                        <Loader2 size={13} className="animate-spin" />
-                      ) : (
-                        <Trash2 size={13} />
-                      )}
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmDeleteId(img.publicId)}
+                        disabled={isDeleting}
+                        className="p-1.5 rounded bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[10px] font-medium flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                        title="Delete image from Cloudinary"
+                      >
+                        {isDeleting ? (
+                          <Loader2 size={13} className="animate-spin" />
+                        ) : (
+                          <Trash2 size={13} />
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             );
