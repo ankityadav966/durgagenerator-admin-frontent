@@ -1,5 +1,6 @@
 import { Save, Loader2, ExternalLink } from "lucide-react";
 import { useContent } from "../context/ContentContext";
+import { PUBLIC_SITE_URL } from "../api/config";
 
 export const SectionHeader = ({
   title = "Edit Section",
@@ -26,7 +27,7 @@ export const SectionHeader = ({
           <div className="mt-2 flex items-center gap-1.5 text-xs text-amber-700">
             <span>Website page:</span>
             <a
-              href={`http://localhost:5173${websiteRoute}`}
+              href={`${PUBLIC_SITE_URL}${websiteRoute}`}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline hover:text-amber-800 inline-flex items-center gap-1"

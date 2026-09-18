@@ -145,12 +145,12 @@ export const SettingsManager = () => {
 
             <div className="mt-4 p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-1.5 text-xs text-gray-600">
               <p className="flex items-center justify-between">
-                <span>Storage format:</span>
-                <span className="font-medium text-gray-900">JSON</span>
+                <span>Database:</span>
+                <span className="font-medium text-emerald-700">MongoDB Atlas (durgagenerator)</span>
               </p>
               <p className="flex items-center justify-between">
-                <span>Uploads directory:</span>
-                <span className="font-medium text-gray-900">/uploads & /assets</span>
+                <span>Media Storage:</span>
+                <span className="font-medium text-amber-700">Cloudinary (100% Cloud)</span>
               </p>
             </div>
           </div>

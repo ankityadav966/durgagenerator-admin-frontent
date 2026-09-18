@@ -14,6 +14,7 @@ import { HowItWorksManager } from "./pages/HowItWorksManager";
 import { FaqManager } from "./pages/FaqManager";
 import { ContactManager } from "./pages/ContactManager";
 import { SettingsManager } from "./pages/SettingsManager";
+import { MediaManager } from "./pages/MediaManager";
 import { Loader2 } from "lucide-react";
 
 const ProtectedRoute = ({ children }) => {
@@ -83,6 +84,7 @@ export const App = () => {
             <Route path="how-it-works" element={<HowItWorksManager />} />
             <Route path="faq" element={<FaqManager />} />
             <Route path="contact" element={<ContactManager />} />
+            <Route path="media" element={<MediaManager />} />
             <Route path="settings" element={<SettingsManager />} />
           </Route>
 

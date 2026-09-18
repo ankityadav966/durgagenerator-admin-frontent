@@ -13,6 +13,7 @@ import {
   ArrowRight,
   ExternalLink
 } from "lucide-react";
+import { PUBLIC_SITE_URL } from "../api/config";
 
 export const Dashboard = () => {
   const { content } = useContent();
@@ -102,7 +103,7 @@ export const Dashboard = () => {
         </div>
 
         <a
-          href="http://localhost:5173"
+          href={PUBLIC_SITE_URL}
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-medium transition-colors shadow-sm w-fit"

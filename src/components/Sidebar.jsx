@@ -11,13 +11,16 @@ import {
   Phone,
   Settings,
   X,
-  ExternalLink
+  ExternalLink,
+  Cloud
 } from "lucide-react";
+import { PUBLIC_SITE_URL } from "../api/config";
 
 export const navItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/hero", label: "Hero Banner", icon: Image },
   { path: "/generators", label: "Generators", icon: Zap },
+  { path: "/media", label: "Media Library", icon: Cloud },
   { path: "/features", label: "Why Choose Us", icon: CheckCircle },
   { path: "/testimonials", label: "Testimonials", icon: MessageSquare },
   { path: "/about", label: "About Us", icon: Info },
@@ -103,7 +106,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
         {/* Footer / Website Link */}
         <div className="p-3 border-t border-gray-200 bg-gray-50">
           <a
-            href="http://localhost:5173"
+            href={PUBLIC_SITE_URL}
             target="_blank"
             rel="noreferrer"
             className="w-full flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 px-3 py-2 rounded-lg text-xs font-medium transition-colors"
