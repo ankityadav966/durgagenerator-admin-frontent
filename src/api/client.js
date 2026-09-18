@@ -94,11 +94,13 @@ export const uploadApi = {
 
   getGallery: () => apiRequest("/api/upload/gallery"),
 
-  deleteImage: (publicId) =>
-    apiRequest(`/api/upload?publicId=${encodeURIComponent(publicId)}`, {
+  deleteImage: (publicId) => {
+    const encoded = encodeURIComponent(publicId);
+    return apiRequest(`/api/upload/${encoded}?publicId=${encoded}`, {
       method: "DELETE",
       body: JSON.stringify({ publicId }),
-    }),
+    });
+  },
 
   getStatus: () => apiRequest("/api/upload/status"),
 };

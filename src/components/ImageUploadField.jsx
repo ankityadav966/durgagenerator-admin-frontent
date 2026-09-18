@@ -76,12 +76,10 @@ export const ImageUploadField = ({
 
     try {
       setDeletingId(publicId);
-      const res = await uploadApi.deleteImage(publicId);
-      if (res.success) {
-        setGalleryImages((prev) => prev.filter((img) => img.publicId !== publicId));
-        if (value && value.includes(publicId)) {
-          onChange("");
-        }
+      await uploadApi.deleteImage(publicId);
+      setGalleryImages((prev) => prev.filter((img) => img.publicId !== publicId));
+      if (value && value.includes(publicId)) {
+        onChange("");
       }
     } catch (err) {
       console.error("Delete error:", err);

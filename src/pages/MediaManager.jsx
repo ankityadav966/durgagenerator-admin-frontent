@@ -84,13 +84,9 @@ export const MediaManager = () => {
     try {
       setDeletingId(publicId);
       setMessage({ text: "", type: "" });
-      const res = await uploadApi.deleteImage(publicId);
-      if (res.success) {
-        setMessage({ text: "Image deleted from Cloudinary successfully", type: "success" });
-        setImages((prev) => prev.filter((img) => img.publicId !== publicId));
-      } else {
-        setMessage({ text: res.message || "Delete failed", type: "error" });
-      }
+      await uploadApi.deleteImage(publicId);
+      setImages((prev) => prev.filter((img) => img.publicId !== publicId));
+      setMessage({ text: "Image deleted from Cloudinary successfully!", type: "success" });
     } catch (err) {
       console.error("Delete error:", err);
       setMessage({ text: err.message || "Failed to delete image from Cloudinary", type: "error" });
@@ -284,23 +280,39 @@ export const MediaManager = () => {
                     </p>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(img.url)}
-                    className="mt-2 w-full py-1 px-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
-                  >
-                    {copiedUrl === img.url ? (
-                      <>
-                        <Check size={11} className="text-emerald-600" />
-                        <span className="text-emerald-700 font-semibold">URL Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={11} />
-                        <span>Copy Cloudinary URL</span>
-                      </>
-                    )}
-                  </button>
+                  <div className="mt-2 flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(img.url)}
+                      className="flex-1 py-1.5 px-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] font-medium flex items-center justify-center gap-1 transition-colors cursor-pointer"
+                    >
+                      {copiedUrl === img.url ? (
+                        <>
+                          <Check size={11} className="text-emerald-600" />
+                          <span className="text-emerald-700 font-semibold">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={11} />
+                          <span>Copy URL</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(img.publicId)}
+                      disabled={isDeleting}
+                      className="p-1.5 rounded bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[10px] font-medium flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                      title="Delete image from Cloudinary"
+                    >
+                      {isDeleting ? (
+                        <Loader2 size={13} className="animate-spin" />
+                      ) : (
+                        <Trash2 size={13} />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             );
