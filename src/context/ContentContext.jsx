@@ -25,7 +25,9 @@ export const ContentProvider = ({ children }) => {
       }
     } catch (err) {
       console.error("Failed to load content:", err);
-      showToast("Could not load content from server. Please check backend connection.", "error");
+      if (localStorage.getItem("durga_admin_token")) {
+        showToast("Could not load content from server. Please check backend connection.", "error");
+      }
     } finally {
       setLoading(false);
     }
