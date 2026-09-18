@@ -95,8 +95,9 @@ export const uploadApi = {
   getGallery: () => apiRequest("/api/upload/gallery"),
 
   deleteImage: (publicId) =>
-    apiRequest(`/api/upload/${encodeURIComponent(publicId)}`, {
+    apiRequest(`/api/upload?publicId=${encodeURIComponent(publicId)}`, {
       method: "DELETE",
+      body: JSON.stringify({ publicId }),
     }),
 
   getStatus: () => apiRequest("/api/upload/status"),

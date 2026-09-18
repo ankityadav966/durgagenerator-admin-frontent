@@ -27,7 +27,7 @@ export const TestimonialsManager = () => {
       role: "Factory Manager",
       rating: 5,
       review: "Top-notch generator rental service. Silent equipment and quick installation in Jaipur.",
-      image: "/assets/user1.jpg"
+      image: "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724482/durga-generators/user1.png"
     };
     setTestimonials([...testimonials, newTest]);
   };
